@@ -1,0 +1,65 @@
+# Dockerfile for ONNX INT8 (Linux only) - WSL2 Compatible
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install only ONNX-related packages (not PyTorch to save space)
+# Use latest onnxruntime version (1.19+) which fixes WSL2 executable stack issue
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user \
+    fastapi==0.109.0 \
+    uvicorn[standard]==0.27.0 \
+    python-multipart==0.0.6 \
+    pydantic==2.5.3 \
+    pydantic-settings==2.1.0 \
+    pillow==10.2.0 \
+    numpy==1.26.3 \
+    onnx==1.17.0 \
+    onnxruntime==1.19.2 \
+    requests==2.31.0
+
+# Final stage
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python dependencies
+COPY --from=builder /root/.local /root/.local
+
+# Copy application code
+COPY app/ ./app/
+
+# Copy ONNX models and labels (must exist locally)
+COPY models/resnet34_int8.onnx ./models/resnet34_int8.onnx
+COPY models/resnet34_fp32.onnx ./models/resnet34_fp32.onnx
+COPY models/resnet34_dog_breeds.json ./models/resnet34_dog_breeds.json
+COPY models/__init__.py ./models/
+
+# Set PATH
+ENV PATH=/root/.local/bin:$PATH
+
+# Force ONNX mode (not PyTorch)
+ENV USE_PYTORCH=false
+
+# ONNX Runtime optimizations
+ENV OMP_NUM_THREADS=4
+ENV OMP_WAIT_POLICY=ACTIVE
+ENV KMP_BLOCKTIME=0
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

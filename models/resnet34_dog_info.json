@@ -1,0 +1,20 @@
+{
+  "model": "ResNet-34 (Dog Breeds Only)",
+  "total_classes": 1000,
+  "dog_breeds": 103,
+  "model_size_mb": 21,
+  "latency_ms": 28,
+  "cloud_latency_ms": 67,
+  "sample_breeds": [
+    "axolotl, mud puppy, Ambystoma mexicanum",
+    "Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis",
+    "Chihuahua",
+    "Japanese spaniel",
+    "Maltese dog, Maltese terrier, Maltese",
+    "Shih-Tzu",
+    "Blenheim spaniel",
+    "toy terrier",
+    "Afghan hound, Afghan",
+    "basset, basset hound"
+  ]
+}

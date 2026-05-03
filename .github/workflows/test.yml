@@ -1,0 +1,158 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=app --cov-report=xml --cov-report=term
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+    
+    - name: Check test coverage
+      run: |
+        coverage report --fail-under=60
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Build Docker image
+      run: |
+        docker build -f Dockerfile.onnx -t waste-classification-api:latest .
+    
+    - name: Test Docker image
+      run: |
+        docker run -d -p 8000:8000 --name test-api waste-classification-api:latest
+        sleep 30
+        curl -f http://localhost:8000/health || exit 1
+        docker stop test-api
+        docker rm test-api
+    
+    - name: Save Docker image
+      run: |
+        docker save waste-classification-api:latest | gzip > waste-api.tar.gz
+    
+    - name: Upload Docker image artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: docker-image
+        path: waste-api.tar.gz
+        retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Deploy to Hugging Face Spaces
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_USERNAME: ${{ secrets.HF_USERNAME }}
+        HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}
+      run: |
+        if [ -z "$HF_TOKEN" ]; then
+          echo "⚠️  HF_TOKEN not set. Skipping deployment."
+          echo "To enable auto-deployment:"
+          echo "1. Create a Hugging Face Space"
+          echo "2. Get your HF token from https://huggingface.co/settings/tokens"
+          echo "3. Add secrets to GitHub: HF_TOKEN, HF_USERNAME, HF_SPACE_NAME"
+          exit 0
+        fi
+        
+        # Install git-lfs
+        sudo apt-get update
+        sudo apt-get install -y git-lfs
+        git lfs install
+        
+        # Clone HF Space
+        git clone https://huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME hf-space
+        cd hf-space
+        
+        # Copy files
+        cp -r ../app ./
+        cp -r ../models ./
+        cp ../requirements.txt ./
+        cp ../Dockerfile.onnx ./Dockerfile
+        
+        # Create README for HF Space
+        cat > README.md << 'EOF'
+        ---
+        title: Waste Classification API
+        emoji: ♻️
+        colorFrom: green
+        colorTo: blue
+        sdk: docker
+        pinned: false
+        ---
+        
+        # Waste Classification API
+        
+        High-throughput API for waste classification using ONNX INT8 quantized model.
+        
+        ## API Endpoints
+        
+        - `GET /health` - Health check
+        - `POST /predict` - Classify waste image
+        
+        ## Usage
+        
+        ```bash
+        curl -X POST https://huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME/predict \
+          -F "file=@image.jpg"
+        ```
+        EOF
+        
+        # Commit and push
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Auto-deploy from GitHub Actions" || echo "No changes to commit"
+        git push https://user:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME main
+        
+        echo "✅ Deployed to https://huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME"

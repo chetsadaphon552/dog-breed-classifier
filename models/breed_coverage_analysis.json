@@ -1,0 +1,419 @@
+{
+  "total_stanford_breeds": 120,
+  "total_resnet_breeds": 103,
+  "matched_breeds": 96,
+  "not_matched_breeds": 24,
+  "coverage_percent": 80.0,
+  "not_matched_list": [
+    "n02086079-Pekinese",
+    "n02086910-papillon",
+    "n02087394-Rhodesian_ridgeback",
+    "n02088632-bluetick",
+    "n02090379-redbone",
+    "n02092339-Weimaraner",
+    "n02098413-Lhasa",
+    "n02104029-kuvasz",
+    "n02104365-schipperke",
+    "n02105056-groenendael",
+    "n02105162-malinois",
+    "n02105251-briard",
+    "n02105412-kelpie",
+    "n02105505-komondor",
+    "n02106382-Bouvier_des_Flandres",
+    "n02107908-Appenzeller",
+    "n02108000-EntleBucher",
+    "n02109047-Great_Dane",
+    "n02109525-Saint_Bernard",
+    "n02111129-Leonberg",
+    "n02111500-Great_Pyrenees",
+    "n02113978-Mexican_hairless",
+    "n02115641-dingo",
+    "n02115913-dhole"
+  ],
+  "matched_list": [
+    {
+      "stanford_name": "n02085620-Chihuahua",
+      "resnet_class_id": 151
+    },
+    {
+      "stanford_name": "n02085782-Japanese_spaniel",
+      "resnet_class_id": 152
+    },
+    {
+      "stanford_name": "n02085936-Maltese_dog",
+      "resnet_class_id": 153
+    },
+    {
+      "stanford_name": "n02086240-Shih-Tzu",
+      "resnet_class_id": 155
+    },
+    {
+      "stanford_name": "n02086646-Blenheim_spaniel",
+      "resnet_class_id": 156
+    },
+    {
+      "stanford_name": "n02087046-toy_terrier",
+      "resnet_class_id": 158
+    },
+    {
+      "stanford_name": "n02088094-Afghan_hound",
+      "resnet_class_id": 160
+    },
+    {
+      "stanford_name": "n02088238-basset",
+      "resnet_class_id": 161
+    },
+    {
+      "stanford_name": "n02088364-beagle",
+      "resnet_class_id": 162
+    },
+    {
+      "stanford_name": "n02088466-bloodhound",
+      "resnet_class_id": 163
+    },
+    {
+      "stanford_name": "n02089078-black-and-tan_coonhound",
+      "resnet_class_id": 165
+    },
+    {
+      "stanford_name": "n02089867-Walker_hound",
+      "resnet_class_id": 166
+    },
+    {
+      "stanford_name": "n02089973-English_foxhound",
+      "resnet_class_id": 167
+    },
+    {
+      "stanford_name": "n02090622-borzoi",
+      "resnet_class_id": 169
+    },
+    {
+      "stanford_name": "n02090721-Irish_wolfhound",
+      "resnet_class_id": 170
+    },
+    {
+      "stanford_name": "n02091032-Italian_greyhound",
+      "resnet_class_id": 171
+    },
+    {
+      "stanford_name": "n02091134-whippet",
+      "resnet_class_id": 172
+    },
+    {
+      "stanford_name": "n02091244-Ibizan_hound",
+      "resnet_class_id": 173
+    },
+    {
+      "stanford_name": "n02091467-Norwegian_elkhound",
+      "resnet_class_id": 174
+    },
+    {
+      "stanford_name": "n02091635-otterhound",
+      "resnet_class_id": 175
+    },
+    {
+      "stanford_name": "n02091831-Saluki",
+      "resnet_class_id": 176
+    },
+    {
+      "stanford_name": "n02092002-Scottish_deerhound",
+      "resnet_class_id": 177
+    },
+    {
+      "stanford_name": "n02093256-Staffordshire_bullterrier",
+      "resnet_class_id": 179
+    },
+    {
+      "stanford_name": "n02093428-American_Staffordshire_terrier",
+      "resnet_class_id": 180
+    },
+    {
+      "stanford_name": "n02093647-Bedlington_terrier",
+      "resnet_class_id": 181
+    },
+    {
+      "stanford_name": "n02093754-Border_terrier",
+      "resnet_class_id": 182
+    },
+    {
+      "stanford_name": "n02093859-Kerry_blue_terrier",
+      "resnet_class_id": 183
+    },
+    {
+      "stanford_name": "n02093991-Irish_terrier",
+      "resnet_class_id": 184
+    },
+    {
+      "stanford_name": "n02094114-Norfolk_terrier",
+      "resnet_class_id": 185
+    },
+    {
+      "stanford_name": "n02094258-Norwich_terrier",
+      "resnet_class_id": 186
+    },
+    {
+      "stanford_name": "n02094433-Yorkshire_terrier",
+      "resnet_class_id": 187
+    },
+    {
+      "stanford_name": "n02095314-wire-haired_fox_terrier",
+      "resnet_class_id": 188
+    },
+    {
+      "stanford_name": "n02095570-Lakeland_terrier",
+      "resnet_class_id": 189
+    },
+    {
+      "stanford_name": "n02095889-Sealyham_terrier",
+      "resnet_class_id": 190
+    },
+    {
+      "stanford_name": "n02096051-Airedale",
+      "resnet_class_id": 191
+    },
+    {
+      "stanford_name": "n02096177-cairn",
+      "resnet_class_id": 192
+    },
+    {
+      "stanford_name": "n02096294-Australian_terrier",
+      "resnet_class_id": 193
+    },
+    {
+      "stanford_name": "n02096437-Dandie_Dinmont",
+      "resnet_class_id": 194
+    },
+    {
+      "stanford_name": "n02096585-Boston_bull",
+      "resnet_class_id": 195
+    },
+    {
+      "stanford_name": "n02097047-miniature_schnauzer",
+      "resnet_class_id": 196
+    },
+    {
+      "stanford_name": "n02097130-giant_schnauzer",
+      "resnet_class_id": 197
+    },
+    {
+      "stanford_name": "n02097209-standard_schnauzer",
+      "resnet_class_id": 198
+    },
+    {
+      "stanford_name": "n02097298-Scotch_terrier",
+      "resnet_class_id": 199
+    },
+    {
+      "stanford_name": "n02097474-Tibetan_terrier",
+      "resnet_class_id": 200
+    },
+    {
+      "stanford_name": "n02097658-silky_terrier",
+      "resnet_class_id": 201
+    },
+    {
+      "stanford_name": "n02098105-soft-coated_wheaten_terrier",
+      "resnet_class_id": 202
+    },
+    {
+      "stanford_name": "n02098286-West_Highland_white_terrier",
+      "resnet_class_id": 203
+    },
+    {
+      "stanford_name": "n02099267-flat-coated_retriever",
+      "resnet_class_id": 206
+    },
+    {
+      "stanford_name": "n02099429-curly-coated_retriever",
+      "resnet_class_id": 206
+    },
+    {
+      "stanford_name": "n02099601-golden_retriever",
+      "resnet_class_id": 207
+    },
+    {
+      "stanford_name": "n02099712-Labrador_retriever",
+      "resnet_class_id": 208
+    },
+    {
+      "stanford_name": "n02099849-Chesapeake_Bay_retriever",
+      "resnet_class_id": 209
+    },
+    {
+      "stanford_name": "n02100236-German_short-haired_pointer",
+      "resnet_class_id": 210
+    },
+    {
+      "stanford_name": "n02100583-vizsla",
+      "resnet_class_id": 211
+    },
+    {
+      "stanford_name": "n02100735-English_setter",
+      "resnet_class_id": 212
+    },
+    {
+      "stanford_name": "n02100877-Irish_setter",
+      "resnet_class_id": 213
+    },
+    {
+      "stanford_name": "n02101006-Gordon_setter",
+      "resnet_class_id": 214
+    },
+    {
+      "stanford_name": "n02101388-Brittany_spaniel",
+      "resnet_class_id": 215
+    },
+    {
+      "stanford_name": "n02101556-clumber",
+      "resnet_class_id": 216
+    },
+    {
+      "stanford_name": "n02102040-English_springer",
+      "resnet_class_id": 217
+    },
+    {
+      "stanford_name": "n02102177-Welsh_springer_spaniel",
+      "resnet_class_id": 218
+    },
+    {
+      "stanford_name": "n02102318-cocker_spaniel",
+      "resnet_class_id": 219
+    },
+    {
+      "stanford_name": "n02102480-Sussex_spaniel",
+      "resnet_class_id": 220
+    },
+    {
+      "stanford_name": "n02102973-Irish_water_spaniel",
+      "resnet_class_id": 221
+    },
+    {
+      "stanford_name": "n02105641-Old_English_sheepdog",
+      "resnet_class_id": 229
+    },
+    {
+      "stanford_name": "n02105855-Shetland_sheepdog",
+      "resnet_class_id": 230
+    },
+    {
+      "stanford_name": "n02106030-collie",
+      "resnet_class_id": 231
+    },
+    {
+      "stanford_name": "n02106166-Border_collie",
+      "resnet_class_id": 231
+    },
+    {
+      "stanford_name": "n02106550-Rottweiler",
+      "resnet_class_id": 234
+    },
+    {
+      "stanford_name": "n02106662-German_shepherd",
+      "resnet_class_id": 235
+    },
+    {
+      "stanford_name": "n02107142-Doberman",
+      "resnet_class_id": 236
+    },
+    {
+      "stanford_name": "n02107312-miniature_pinscher",
+      "resnet_class_id": 237
+    },
+    {
+      "stanford_name": "n02107574-Greater_Swiss_Mountain_dog",
+      "resnet_class_id": 238
+    },
+    {
+      "stanford_name": "n02107683-Bernese_mountain_dog",
+      "resnet_class_id": 239
+    },
+    {
+      "stanford_name": "n02108089-boxer",
+      "resnet_class_id": 242
+    },
+    {
+      "stanford_name": "n02108422-bull_mastiff",
+      "resnet_class_id": 243
+    },
+    {
+      "stanford_name": "n02108551-Tibetan_mastiff",
+      "resnet_class_id": 244
+    },
+    {
+      "stanford_name": "n02108915-French_bulldog",
+      "resnet_class_id": 245
+    },
+    {
+      "stanford_name": "n02109961-Eskimo_dog",
+      "resnet_class_id": 248
+    },
+    {
+      "stanford_name": "n02110063-malamute",
+      "resnet_class_id": 249
+    },
+    {
+      "stanford_name": "n02110185-Siberian_husky",
+      "resnet_class_id": 250
+    },
+    {
+      "stanford_name": "n02110627-affenpinscher",
+      "resnet_class_id": 252
+    },
+    {
+      "stanford_name": "n02110806-basenji",
+      "resnet_class_id": 253
+    },
+    {
+      "stanford_name": "n02110958-pug",
+      "resnet_class_id": 254
+    },
+    {
+      "stanford_name": "n02111277-Newfoundland",
+      "resnet_class_id": 256
+    },
+    {
+      "stanford_name": "n02111889-Samoyed",
+      "resnet_class_id": 258
+    },
+    {
+      "stanford_name": "n02112018-Pomeranian",
+      "resnet_class_id": 259
+    },
+    {
+      "stanford_name": "n02112137-chow",
+      "resnet_class_id": 260
+    },
+    {
+      "stanford_name": "n02112350-keeshond",
+      "resnet_class_id": 261
+    },
+    {
+      "stanford_name": "n02112706-Brabancon_griffon",
+      "resnet_class_id": 262
+    },
+    {
+      "stanford_name": "n02113023-Pembroke",
+      "resnet_class_id": 263
+    },
+    {
+      "stanford_name": "n02113186-Cardigan",
+      "resnet_class_id": 264
+    },
+    {
+      "stanford_name": "n02113624-toy_poodle",
+      "resnet_class_id": 265
+    },
+    {
+      "stanford_name": "n02113712-miniature_poodle",
+      "resnet_class_id": 266
+    },
+    {
+      "stanford_name": "n02113799-standard_poodle",
+      "resnet_class_id": 267
+    },
+    {
+      "stanford_name": "n02116738-African_hunting_dog",
+      "resnet_class_id": 275
+    }
+  ]
+}

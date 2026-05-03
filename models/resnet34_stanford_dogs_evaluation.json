@@ -1,0 +1,11 @@
+{
+  "model": "ResNet-34 INT8",
+  "model_size_mb": 21,
+  "dataset": "Stanford Dogs",
+  "total_samples": 500,
+  "correct_predictions": 373,
+  "accuracy_percent": 74.6,
+  "mean_inference_ms": 28.108328800066374,
+  "median_inference_ms": 27.802900000096997,
+  "dog_breeds_in_model": 103
+}

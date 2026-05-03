@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+*.cover
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentation
+*.md
+!README.md
+
+# Data
+annotations/
+Images/
+images/
+evaluation_results/
+stanford-dogs-dataset.zip
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.DS_Store
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# JMeter
+*.jmx
+jmeter/
+
+# Other
+app/
+cleanup_project.py
+run_complete_pipeline.py
+test_*.py
+start_api.bat
+benchmark_*.json
+benchmark_*.png
+*.png
+Dockerfile.onnx

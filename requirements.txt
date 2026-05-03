@@ -1,0 +1,38 @@
+# Core API Dependencies
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Image Processing
+pillow==10.2.0
+numpy==1.26.3
+
+# Model Inference (ONNX Runtime)
+onnx==1.21.0
+onnxruntime==1.25.1
+ml-dtypes==0.5.4
+
+# Model Download & Conversion (PyTorch - ใช้เฉพาะ step1)
+torch==2.1.2
+torchvision==0.16.2
+transformers==4.36.2
+huggingface-hub==0.20.2
+
+# Model Evaluation (ใช้ใน step3)
+scikit-learn==1.4.0
+kagglehub==0.2.5
+
+# Visualization (ใช้ใน step2, step3)
+matplotlib==3.8.2
+seaborn==0.13.1
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+httpx==0.26.0
+
+# Utilities
+requests==2.31.0
