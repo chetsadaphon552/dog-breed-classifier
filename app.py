@@ -6,10 +6,50 @@ import streamlit as st
 import requests
 from PIL import Image
 import io
+import time
 
 # Configuration
 API_URL = "https://chetsadaphon66-dog-breed-classifier.hf.space/predict"
 HEALTH_URL = "https://chetsadaphon66-dog-breed-classifier.hf.space/health"
+
+# Helper function to call API with retry
+def call_api_with_retry(url, files=None, max_retries=3, timeout=60):
+    """Call API with retry logic for cold start"""
+    for attempt in range(max_retries):
+        try:
+            if files:
+                response = requests.post(url, files=files, timeout=timeout)
+            else:
+                response = requests.get(url, timeout=timeout)
+            
+            if response.status_code == 200:
+                return response
+            elif response.status_code == 403:
+                if attempt < max_retries - 1:
+                    st.warning(f"⏳ API กำลัง cold start... (ลองครั้งที่ {attempt + 1}/{max_retries})")
+                    time.sleep(5)  # Wait 5 seconds before retry
+                    continue
+                else:
+                    raise Exception(f"API ปฏิเสธการเชื่อมต่อ (403). กรุณาเปิด API Space ที่ {HEALTH_URL.replace('/health', '')} ก่อน")
+            else:
+                raise Exception(f"API error: {response.status_code}")
+        except requests.exceptions.Timeout:
+            if attempt < max_retries - 1:
+                st.warning(f"⏳ API ตอบสนองช้า... (ลองครั้งที่ {attempt + 1}/{max_retries})")
+                time.sleep(5)
+                continue
+            else:
+                raise Exception("API timeout หลังจากลองหลายครั้ง")
+        except requests.exceptions.ConnectionError:
+            if attempt < max_retries - 1:
+                st.warning(f"⏳ กำลังเชื่อมต่อ API... (ลองครั้งที่ {attempt + 1}/{max_retries})")
+                time.sleep(5)
+                continue
+            else:
+                raise Exception("ไม่สามารถเชื่อมต่อ API")
+    
+    raise Exception("ไม่สามารถเรียก API ได้")
+
 
 # Page config
 st.set_page_config(
@@ -103,16 +143,14 @@ with st.sidebar:
     st.divider()
     st.subheader("🏥 สถานะระบบ")
     try:
-        health_response = requests.get(HEALTH_URL, timeout=5)
-        if health_response.status_code == 200:
-            st.success("✅ API ทำงานปกติ")
-            health_data = health_response.json()
-            st.caption(f"Model: {health_data.get('model_loaded', False)}")
-            st.caption(f"Breeds: {health_data.get('num_breeds', 0)} สายพันธุ์")
-        else:
-            st.error("❌ API ไม่ตอบสนอง")
-    except:
-        st.warning("⚠️ ไม่สามารถเชื่อมต่อ API")
+        health_response = call_api_with_retry(HEALTH_URL, max_retries=1, timeout=10)
+        st.success("✅ API ทำงานปกติ")
+        health_data = health_response.json()
+        st.caption(f"Model: {health_data.get('model_loaded', False)}")
+        st.caption(f"Breeds: {health_data.get('num_breeds', 0)} สายพันธุ์")
+    except Exception as e:
+        st.warning(f"⚠️ {str(e)}")
+        st.caption("💡 เปิด API Space: https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier")
 
 # Main content
 col1, col2 = st.columns([1, 1])
@@ -140,19 +178,16 @@ with col1:
                     uploaded_file.seek(0)
                     files = {"file": (uploaded_file.name, uploaded_file, uploaded_file.type)}
                     
-                    # Call API
-                    response = requests.post(API_URL, files=files, timeout=30)
+                    # Call API with retry
+                    response = call_api_with_retry(API_URL, files=files, max_retries=3, timeout=60)
                     
-                    if response.status_code == 200:
-                        result = response.json()
-                        st.session_state['result'] = result
-                        st.success("✅ วิเคราะห์เสร็จสิ้น!")
-                    else:
-                        st.error(f"❌ เกิดข้อผิดพลาด: {response.status_code}")
-                        st.json(response.json())
+                    result = response.json()
+                    st.session_state['result'] = result
+                    st.success("✅ วิเคราะห์เสร็จสิ้น!")
                         
                 except Exception as e:
-                    st.error(f"❌ ไม่สามารถเชื่อมต่อ API: {str(e)}")
+                    st.error(f"❌ {str(e)}")
+                    st.info("💡 ลองเปิด API Space ก่อน: https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier")
     else:
         st.info("👆 กรุณาอัปโหลดรูปหมาเพื่อเริ่มต้น")
 
