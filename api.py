@@ -45,8 +45,15 @@ def load_dog_breeds():
 @lru_cache(maxsize=1)
 def load_breed_care_info():
     """Load breed care information (cached)"""
-    with open(BREED_CARE_INFO_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(BREED_CARE_INFO_PATH, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.warning(f"Breed care info file not found: {BREED_CARE_INFO_PATH}")
+        return {}
+    except Exception as e:
+        logger.error(f"Failed to load breed care info: {e}")
+        return {}
 
 
 def load_onnx_model():

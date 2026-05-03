@@ -40,6 +40,7 @@ ENV PATH=/home/appuser/.local/bin:$PATH
 COPY api.py .
 COPY models/resnet34_int8.onnx models/
 COPY models/resnet34_dog_breeds.json models/
+COPY models/breed_care_info.json models/
 
 # Set ownership
 RUN chown -R appuser:appuser /app /home/appuser/.local

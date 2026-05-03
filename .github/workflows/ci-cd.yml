@@ -69,6 +69,7 @@ jobs:
         mkdir -p models
         cp ../models/resnet34_int8.onnx models/
         cp ../models/resnet34_dog_breeds.json models/
+        cp ../models/breed_care_info.json models/
         
         # Update README if exists
         if [ -f ../HF_README.md ]; then
