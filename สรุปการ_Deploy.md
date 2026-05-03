@@ -154,3 +154,4 @@ curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
 **โปรเจค**: Dog Breed Classification API  
 **วันที่**: 4 พฤษภาคม 2026  
 **วิชา**: MLOps Final Project
+

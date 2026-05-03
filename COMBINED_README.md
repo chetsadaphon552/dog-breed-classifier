@@ -95,3 +95,4 @@ curl -X POST "http://localhost:8000/predict" \
 ---
 
 **Made with ❤️ for MLOps Course 2026**
+

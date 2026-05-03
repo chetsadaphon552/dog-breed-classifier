@@ -10,7 +10,7 @@
   - [x] Applied INT8 dynamic quantization
   - [x] Benchmarked performance (2.42x faster, 74.8% smaller)
   - [x] Evaluated accuracy (87.0% on Stanford Dogs)
-  - [x] Filtered to 103 dog breeds only
+  - [x] Filtered to 96 Dog Breeds only
 
 - [x] **FastAPI Development**
   - [x] Created async FastAPI application
@@ -176,7 +176,7 @@ Expected: 10/10 tests passed
 ### Accuracy
 - **Dataset**: Stanford Dogs (30 breeds tested)
 - **Accuracy**: 87.0%
-- **Dog Breeds**: 103 breeds supported
+- **Dog Breeds**: 96 breeds supported
 
 ### API Performance (Expected)
 - **Local**: 35 TPS, P95 latency: 45ms
@@ -243,3 +243,4 @@ You've completed 90% of the project! Just add the GitHub secret and run the load
 **Author**: Chetsadaphon Kantawong  
 **Date**: May 4, 2026  
 **Status**: 90% Complete - Ready for Final Testing
+

@@ -156,3 +156,4 @@ MLOps Project - High-Throughput Image Classification Service
 - Base model: `yangy50/garbage-classification`
 - Framework: FastAPI, ONNX Runtime
 - Deployment: Hugging Face Spaces
+

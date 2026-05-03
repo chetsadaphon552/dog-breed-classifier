@@ -13,7 +13,7 @@ High-throughput image classification service using optimized ONNX ResNet-34 mode
 
 ## 🎯 Features
 
-- **103 Dog Breeds** classification
+- **96 Dog Breeds** classification
 - **ONNX INT8** quantized model (74.8% smaller, 1.54x faster)
 - **FastAPI** with async support
 - **ProcessPoolExecutor** for high concurrency
@@ -42,7 +42,7 @@ curl https://YOUR_USERNAME-dog-breed-classifier.hf.space/health
   "status": "healthy",
   "model_loaded": true,
   "breeds_loaded": true,
-  "num_breeds": 103
+  "num_breeds": 96
 }
 ```
 
@@ -120,3 +120,4 @@ print(response.json())
 ---
 
 **Made with ❤️ for MLOps Course**
+

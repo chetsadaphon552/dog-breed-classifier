@@ -240,3 +240,4 @@ pip install kagglehub
 **Last Updated**: May 1, 2026
 
 **Model Version**: yangy50/garbage-classification (Vision Transformer)
+

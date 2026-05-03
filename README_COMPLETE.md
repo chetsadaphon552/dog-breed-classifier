@@ -102,7 +102,7 @@ curl http://localhost:8000/health
   "status": "healthy",
   "model_loaded": true,
   "breeds_loaded": true,
-  "num_breeds": 103
+  "num_breeds": 96
 }
 ```
 
@@ -399,3 +399,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Made with ❤️ by [Your Team Name]**
+

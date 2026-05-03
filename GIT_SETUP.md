@@ -77,7 +77,7 @@ High-throughput image classification service using optimized ONNX ResNet-34 mode
 
 ## Features
 
-- 103 dog breeds classification
+- 96 Dog Breeds classification
 - ONNX INT8 quantized model (74.8% smaller)
 - FastAPI with async support
 - ProcessPoolExecutor for concurrency
@@ -303,3 +303,4 @@ jmeter -n -t jmeter/dog_classifier_loadtest.jmx \
 7. ✅ ฝึก live demo
 
 Good luck! 🚀
+

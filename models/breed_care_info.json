@@ -1,24 +1,4 @@
 {
-  "29": {
-    "breed_name": "axolotl, mud puppy, Ambystoma mexicanum",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "48": {
-    "breed_name": "Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
   "151": {
     "breed_name": "Chihuahua",
     "care_info": {
@@ -971,56 +951,6 @@
   },
   "267": {
     "breed_name": "standard poodle",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "275": {
-    "breed_name": "African hunting dog, hyena dog, Cape hunting dog, Lycaon pictus",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "388": {
-    "breed_name": "giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "537": {
-    "breed_name": "dogsled, dog sled, dog sleigh",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "865": {
-    "breed_name": "toyshop",
-    "care_info": {
-      "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
-      "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",
-      "nutrition": "อาหารคุณภาพดี ปริมาณตามขนาดตัว",
-      "health_care": "ตรวจสุขภาพประจำปี ฉีดวัคซีนครบ",
-      "grooming": "แปรงขนสัปดาห์ละ 2-3 ครั้ง"
-    }
-  },
-  "934": {
-    "breed_name": "hotdog, hot dog, red hot",
     "care_info": {
       "personality": "เป็นมิตร ภักดี เหมาะกับครอบครัว",
       "exercise": "ปานกลาง เดินเล่น 30-60 นาที/วัน",

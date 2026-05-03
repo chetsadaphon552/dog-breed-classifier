@@ -180,3 +180,4 @@ curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
 
 **อัปเดต**: 4 พฤษภาคม 2026  
 **สถานะ**: ✅ Deploy แล้ว - พร้อมใช้งาน
+

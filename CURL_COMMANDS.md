@@ -30,7 +30,7 @@ curl http://localhost:8000/health
   "status": "healthy",
   "model_loaded": true,
   "breeds_loaded": true,
-  "num_breeds": 103
+  "num_breeds": 96
 }
 ```
 
@@ -263,3 +263,4 @@ curl -X POST "http://localhost:8000/predict" \
 seq 10 | parallel -j 10 \
   'curl -X POST "http://localhost:8000/predict" -F "file=@pug.jpg" -s -o /dev/null -w "Time: %{time_total}s\n"'
 ```
+

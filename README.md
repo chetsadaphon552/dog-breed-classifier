@@ -8,7 +8,7 @@ High-throughput image classification service using optimized ONNX ResNet-34 mode
 ## 🎯 Project Overview
 
 This project implements a production-ready dog breed classification API with:
-- **103 Dog Breeds** classification
+- **96 Dog Breeds** classification
 - **ONNX INT8** quantized model (74.8% smaller, 1.54x faster)
 - **FastAPI** with async/await and ProcessPoolExecutor
 - **Docker** containerization
@@ -267,3 +267,4 @@ This project is for educational purposes (MLOps Course).
 ---
 
 **Made with ❤️ for MLOps Course - May 2026**
+

@@ -73,3 +73,4 @@ Edit `dog_classifier_loadtest.jmx` and change:
 - **Average Latency**: ~60-80 ms
 - **P95 Latency**: ~100-120 ms
 - **Error Rate**: 0%
+

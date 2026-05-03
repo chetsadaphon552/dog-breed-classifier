@@ -143,3 +143,4 @@ Your project is now fully deployed with:
 - ✅ Production-ready API
 
 **Just add the HF_TOKEN secret and you're done!**
+

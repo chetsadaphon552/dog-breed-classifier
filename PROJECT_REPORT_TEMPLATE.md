@@ -65,7 +65,7 @@ The primary goal is to develop a scalable, production-ready image classification
 
 - **Name:** Stanford Dogs Dataset
 - **Classes:** 120 dog breeds
-- **Model Classes:** 103 breeds (filtered for ResNet-34)
+- **Model Classes:** 96 breeds (filtered for ResNet-34)
 - **Images Used:** 750 images (25 per breed × 30 breeds)
 - **Source:** Kaggle / Stanford University
 
@@ -624,3 +624,4 @@ This project successfully demonstrates the complete MLOps lifecycle:
 ---
 
 **End of Report**
+
