@@ -26,10 +26,12 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 MODEL_PATH = "models/resnet34_int8.onnx"  # Use quantized model for production
 DOG_BREEDS_PATH = "models/resnet34_dog_breeds.json"
+BREED_CARE_INFO_PATH = "models/breed_care_info.json"
 
 # Global variables
 onnx_session = None
 dog_breeds = None
+breed_care_info = None
 executor = None
 
 
@@ -37,6 +39,13 @@ executor = None
 def load_dog_breeds():
     """Load dog breeds mapping (cached)"""
     with open(DOG_BREEDS_PATH, 'r') as f:
+        return json.load(f)
+
+
+@lru_cache(maxsize=1)
+def load_breed_care_info():
+    """Load breed care information (cached)"""
+    with open(BREED_CARE_INFO_PATH, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
@@ -131,7 +140,7 @@ def run_inference_in_process(image_array_bytes: bytes, model_path: str, breeds_p
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown"""
-    global onnx_session, dog_breeds, executor
+    global onnx_session, dog_breeds, breed_care_info, executor
     
     # Startup
     logger.info("Starting up application...")
@@ -139,6 +148,7 @@ async def lifespan(app: FastAPI):
     # Load model and breeds
     onnx_session = load_onnx_model()
     dog_breeds = load_dog_breeds()
+    breed_care_info = load_breed_care_info()
     
     # Initialize ProcessPoolExecutor for CPU-bound inference
     # Using max_workers=2 to handle concurrent requests
@@ -169,6 +179,14 @@ app = FastAPI(
 )
 
 # Response models
+class BreedCareInfo(BaseModel):
+    """Breed care information"""
+    personality: str
+    exercise: str
+    nutrition: str
+    health_care: str
+    grooming: str
+
 class PredictionResponse(BaseModel):
     """Response model for prediction endpoint"""
     success: bool
@@ -176,6 +194,7 @@ class PredictionResponse(BaseModel):
     breed_name: str
     confidence: float = Field(..., ge=0.0, le=1.0)
     top_5_predictions: Optional[List[dict]] = None
+    care_info: Optional[BreedCareInfo] = None
     inference_time_ms: float
 
 class ErrorResponse(BaseModel):
@@ -245,6 +264,7 @@ async def health_check():
         "status": "healthy",
         "model_loaded": onnx_session is not None,
         "breeds_loaded": dog_breeds is not None,
+        "care_info_loaded": breed_care_info is not None,
         "num_breeds": len(dog_breeds) if dog_breeds else 0
     }
 
@@ -330,12 +350,19 @@ async def predict(file: UploadFile = File(...)):
     # Get breed name
     breed_name = dog_breeds[str(predicted_class)].split(',')[0]
     
+    # Get care information
+    care_data = None
+    if str(predicted_class) in breed_care_info:
+        care_info_dict = breed_care_info[str(predicted_class)]["care_info"]
+        care_data = BreedCareInfo(**care_info_dict)
+    
     return PredictionResponse(
         success=True,
         predicted_class=predicted_class,
         breed_name=breed_name,
         confidence=confidence,
         top_5_predictions=top_5,
+        care_info=care_data,
         inference_time_ms=inference_time
     )
 
