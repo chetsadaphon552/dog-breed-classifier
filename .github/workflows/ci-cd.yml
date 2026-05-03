@@ -59,7 +59,7 @@ jobs:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_SPACE: chetsadaphon66/dog-breed-classifier
       run: |
-        git clone https://chetsadaphon66:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE hf-space
+        git clone https://huggingface:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE hf-space
         cd hf-space
         
         # Copy API files
@@ -86,7 +86,7 @@ jobs:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_SPACE_UI: chetsadaphon66/dog-breed-classifier-ui
       run: |
-        git clone https://chetsadaphon66:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_UI hf-space-ui
+        git clone https://huggingface:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_UI hf-space-ui
         cd hf-space-ui
         
         # Copy Streamlit UI files
