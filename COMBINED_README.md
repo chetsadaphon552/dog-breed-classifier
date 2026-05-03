@@ -12,7 +12,7 @@ tags:
 - image-classification
 - dog-breeds
 pinned: false
-short_description: ระบุสายพันธุ์สุนัขจากรูปภาพ พร้อมข้อมูลการดูแล (FastAPI + Streamlit)
+short_description: Dog breed classification with care info (API + UI)
 license: apache-2.0
 ---
 
