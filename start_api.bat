@@ -1,3 +1,0 @@
-@echo off
-echo Starting Dog Breed Classification API...
-python api.py

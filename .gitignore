@@ -55,3 +55,14 @@ temp/
 hf-space/
 hf-streamlit-space/
 dog-breed-classifier/
+
+# Evaluation and testing folders
+evaluation_results/
+jmeter/
+
+# App folder (not used)
+app/
+
+# Benchmark results
+benchmark_*.json
+benchmark_*.png
