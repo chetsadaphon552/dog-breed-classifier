@@ -357,9 +357,9 @@ async def predict(file: UploadFile = File(...)):
     # Get breed name
     breed_name = dog_breeds[str(predicted_class)].split(',')[0]
     
-    # Get care information
+    # Get care information (handle None case)
     care_data = None
-    if str(predicted_class) in breed_care_info:
+    if breed_care_info and str(predicted_class) in breed_care_info:
         care_info_dict = breed_care_info[str(predicted_class)]["care_info"]
         care_data = BreedCareInfo(**care_info_dict)
     
