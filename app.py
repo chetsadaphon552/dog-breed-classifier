@@ -130,7 +130,7 @@ with col1:
     if uploaded_file is not None:
         # Display uploaded image
         image = Image.open(uploaded_file)
-        st.image(image, caption="รูปที่อัปโหลด", use_container_width=True)
+        st.image(image, caption="รูปที่อัปโหลด", use_column_width=True)
         
         # Predict button
         if st.button("🔍 ระบุสายพันธุ์", type="primary", use_container_width=True):
