@@ -35,6 +35,14 @@ Thumbs.db
 *.pt
 *.ckpt
 
+# Dataset files (too large for GitHub)
+stanford-dogs-dataset.zip
+annotations/
+images/
+
+# Model cache
+models/cache_resnet34/
+
 # Logs
 *.log
 
