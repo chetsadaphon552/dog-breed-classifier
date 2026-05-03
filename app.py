@@ -9,8 +9,8 @@ import io
 import time
 
 # Configuration
-API_URL = "https://chetsadaphon66-dog-breed-classifier.hf.space/predict"
-HEALTH_URL = "https://chetsadaphon66-dog-breed-classifier.hf.space/health"
+API_URL = "http://localhost:8000/predict"
+HEALTH_URL = "http://localhost:8000/health"
 
 # Helper function to call API with retry
 def call_api_with_retry(url, files=None, max_retries=3, timeout=60):

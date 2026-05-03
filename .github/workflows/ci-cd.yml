@@ -54,7 +54,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
     
-    - name: Deploy API to HF Space
+    - name: Deploy Combined Space (API + UI)
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_SPACE: chetsadaphon66/dog-breed-classifier
@@ -62,53 +62,29 @@ jobs:
         git clone https://huggingface:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE hf-space
         cd hf-space
         
-        # Copy API files
+        # Copy all files for combined space
         cp ../api.py .
-        cp ../Dockerfile .
+        cp ../app.py .
+        cp ../start.sh .
+        cp ../Dockerfile.combined Dockerfile
         cp ../requirements.txt .
         mkdir -p models
         cp ../models/resnet34_int8.onnx models/
         cp ../models/resnet34_dog_breeds.json models/
         cp ../models/breed_care_info.json models/
         
-        # Update README if exists
-        if [ -f ../HF_README.md ]; then
-          cp ../HF_README.md README.md
+        # Update README
+        if [ -f ../COMBINED_README.md ]; then
+          cp ../COMBINED_README.md README.md
         fi
         
         # Commit and push
         git add .
-        git commit -m "Auto-deploy API from GitHub Actions" || echo "No changes to commit"
-        git push
-    
-    - name: Deploy UI to HF Space
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        HF_SPACE_UI: chetsadaphon66/dog-breed-classifier-ui
-      run: |
-        git clone https://huggingface:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_UI hf-space-ui
-        cd hf-space-ui
-        
-        # Copy Streamlit UI files
-        mkdir -p src
-        cp ../app.py src/streamlit_app.py
-        
-        # Create requirements.txt for Streamlit
-        echo "streamlit==1.31.0" > requirements.txt
-        echo "requests" >> requirements.txt
-        echo "Pillow" >> requirements.txt
-        
-        # Update README if exists
-        if [ -f ../STREAMLIT_README.md ]; then
-          cp ../STREAMLIT_README.md README.md
-        fi
-        
-        # Commit and push
-        git add .
-        git commit -m "Auto-deploy UI from GitHub Actions" || echo "No changes to commit"
+        git commit -m "Auto-deploy combined API + UI from GitHub Actions" || echo "No changes to commit"
         git push
     
     - name: Deployment summary
       run: |
-        echo "✅ Deployed API to https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier"
-        echo "✅ Deployed UI to https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier-ui"
+        echo "✅ Deployed combined space to https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier"
+        echo "🎨 Streamlit UI: Port 7860"
+        echo "🚀 FastAPI: Port 8000"
