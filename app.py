@@ -1,6 +1,9 @@
 """
 Streamlit Web App for Dog Breed Classification
 อัปโหลดรูปหมา → ระบุสายพันธุ์ → แสดงข้อมูลการดูแล
+
+Combined Space: FastAPI + Streamlit in same container
+API calls via localhost for lowest latency
 """
 import streamlit as st
 import requests
@@ -8,7 +11,7 @@ from PIL import Image
 import io
 import time
 
-# Configuration
+# Configuration - localhost for same container
 API_URL = "http://localhost:8000/predict"
 HEALTH_URL = "http://localhost:8000/health"
 
