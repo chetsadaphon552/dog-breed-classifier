@@ -25,11 +25,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install fastapi uvicorn python-multipart pydantic pillow numpy onnx onnxruntime pytest pytest-asyncio httpx
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-cov httpx
     
     - name: Run unit tests
       run: |
-        pytest test_api.py -v
+        pytest test_api.py -v --cov=api --cov-report=xml --cov-report=term
     
     - name: Test summary
       if: always()
