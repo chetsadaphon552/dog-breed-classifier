@@ -66,3 +66,7 @@ app/
 # Benchmark results
 benchmark_*.json
 benchmark_*.png
+
+# Local testing scripts (not for git)
+run_pipeline.py
+test_local.py
