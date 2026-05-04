@@ -58,7 +58,9 @@ dog-breed-classifier/
 
 # Evaluation and testing folders
 evaluation_results/
-jmeter/
+jmeter/report_*/
+jmeter/results_*.jtl
+jmeter/test_images/
 
 # App folder (not used)
 app/
