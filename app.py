@@ -162,4 +162,4 @@ col1, col2 = st.columns(2)
 with col1:
     st.caption("ResNet-34 (ONNX INT8)")
 with col2:
-    st.caption("MLOps Project 2026")
+    st.caption("96 Dog Breeds")
