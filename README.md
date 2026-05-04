@@ -29,38 +29,142 @@ This project implements a production-ready dog breed classification API with:
 
 **API Endpoint**: https://chetsadaphon66-dog-breed-classifier.hf.space
 
-### Quick Test
+**Streamlit UI**: https://chetsadaphon66-dog-breed-classifier.hf.space (Port 7860)
+
+## 📡 API Usage Examples
+
+### 1. Health Check
 
 ```bash
-# Health check
+# Basic health check
+curl https://chetsadaphon66-dog-breed-classifier.hf.space/
+
+# Detailed health status
 curl https://chetsadaphon66-dog-breed-classifier.hf.space/health
-
-# Predict dog breed
-curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
-  -F "file=@your_dog_image.jpg"
-```
-
-### Python Example
-
-```python
-import requests
-
-url = "https://chetsadaphon66-dog-breed-classifier.hf.space/predict"
-files = {"file": open("dog.jpg", "rb")}
-response = requests.post(url, files=files)
-print(response.json())
 ```
 
 **Response:**
 ```json
 {
+  "status": "healthy",
+  "model_loaded": true,
+  "breeds_loaded": true,
+  "care_info_loaded": true,
+  "num_breeds": 96
+}
+```
+
+### 2. Predict Dog Breed (cURL)
+
+```bash
+# Basic prediction
+curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
+  -F "file=@dog_image.jpg"
+
+# Save response to file
+curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
+  -F "file=@dog_image.jpg" \
+  -o response.json
+
+# Pretty print JSON response
+curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
+  -F "file=@dog_image.jpg" | jq .
+```
+
+### 3. Python Example
+
+```python
+import requests
+
+# Predict dog breed
+url = "https://chetsadaphon66-dog-breed-classifier.hf.space/predict"
+files = {"file": open("dog.jpg", "rb")}
+response = requests.post(url, files=files)
+result = response.json()
+
+print(f"Breed: {result['breed_name']}")
+print(f"Confidence: {result['confidence']:.2%}")
+print(f"Inference Time: {result['inference_time_ms']:.2f}ms")
+```
+
+### 4. JavaScript/Node.js Example
+
+```javascript
+const FormData = require('form-data');
+const fs = require('fs');
+const axios = require('axios');
+
+const form = new FormData();
+form.append('file', fs.createReadStream('dog.jpg'));
+
+axios.post('https://chetsadaphon66-dog-breed-classifier.hf.space/predict', form, {
+  headers: form.getHeaders()
+})
+.then(response => {
+  console.log('Breed:', response.data.breed_name);
+  console.log('Confidence:', response.data.confidence);
+})
+.catch(error => console.error('Error:', error));
+```
+
+### 5. PowerShell Example (Windows)
+
+```powershell
+# Predict dog breed
+$uri = "https://chetsadaphon66-dog-breed-classifier.hf.space/predict"
+$filePath = "C:\path\to\dog.jpg"
+
+$form = @{
+    file = Get-Item -Path $filePath
+}
+
+Invoke-RestMethod -Uri $uri -Method Post -Form $form
+```
+
+**Response Example:**
+```json
+{
   "success": true,
   "predicted_class": 254,
   "breed_name": "pug",
-  "confidence": 0.739,
-  "top_5_predictions": [...],
-  "inference_time_ms": 28.5
+  "confidence": 0.9234,
+  "top_5_predictions": [
+    {
+      "class_id": 254,
+      "breed_name": "pug",
+      "confidence": 0.9234
+    },
+    {
+      "class_id": 195,
+      "breed_name": "Boston bull",
+      "confidence": 0.0456
+    },
+    {
+      "class_id": 245,
+      "breed_name": "French bulldog",
+      "confidence": 0.0189
+    }
+  ],
+  "care_info": {
+    "personality": "สายพันธุ์นี้มีนิสัยขี้เล่น รักเจ้าของ ตลก เหมาะกับครอบครัวที่มีเด็ก",
+    "exercise": "ควรเดินเล่นเบาๆ 20-30 นาที/วัน ระวังออกกำลังกายหนักเพราะหายใจลำบาก",
+    "nutrition": "ควบคุมปริมาณอาหาร 1-1.5 ถ้วย/วัน เพราะง่ายต่อการอ้วน",
+    "health_care": "ควรระวังปัญหาทางเดินหายใจ โรคอ้วน และตา พบสัตวแพทย์ปีละ 2 ครั้ง",
+    "grooming": "ควรแปรงขนสัปดาห์ละ 2-3 ครั้ง ทำความสะอาดรอยพับบนใบหน้า"
+  },
+  "inference_time_ms": 27.92
 }
+```
+
+### 6. Test with Sample Images
+
+```bash
+# Download sample dog image
+curl -o test_dog.jpg https://images.dog.ceo/breeds/pug/n02110958_1008.jpg
+
+# Predict breed
+curl -X POST "https://chetsadaphon66-dog-breed-classifier.hf.space/predict" \
+  -F "file=@test_dog.jpg"
 ```
 
 ## 🏗️ Architecture

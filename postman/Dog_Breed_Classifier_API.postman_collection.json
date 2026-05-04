@@ -1,0 +1,202 @@
+{
+  "info": {
+    "name": "Dog Breed Classifier API",
+    "description": "High-throughput dog breed classification API using ONNX INT8 model",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "dog-breed-classifier"
+  },
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Root Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Basic health check endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "Detailed Health Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Get detailed health status including model and breeds loaded"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Predictions",
+      "item": [
+        {
+          "name": "Predict Dog Breed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/path/to/dog_image.jpg",
+                  "description": "Dog image file (JPG, PNG, WEBP)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/predict",
+              "host": ["{{base_url}}"],
+              "path": ["predict"]
+            },
+            "description": "Upload a dog image and get breed prediction with confidence score"
+          },
+          "response": [
+            {
+              "name": "Successful Prediction",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": "pug.jpg"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/predict",
+                  "host": ["{{base_url}}"],
+                  "path": ["predict"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"predicted_class\": 254,\n  \"breed_name\": \"pug\",\n  \"confidence\": 0.9234,\n  \"top_5_predictions\": [\n    {\n      \"class_id\": 254,\n      \"breed_name\": \"pug\",\n      \"confidence\": 0.9234\n    },\n    {\n      \"class_id\": 195,\n      \"breed_name\": \"Boston bull\",\n      \"confidence\": 0.0456\n    },\n    {\n      \"class_id\": 245,\n      \"breed_name\": \"French bulldog\",\n      \"confidence\": 0.0189\n    },\n    {\n      \"class_id\": 151,\n      \"breed_name\": \"Chihuahua\",\n      \"confidence\": 0.0078\n    },\n    {\n      \"class_id\": 252,\n      \"breed_name\": \"affenpinscher\",\n      \"confidence\": 0.0043\n    }\n  ],\n  \"care_info\": {\n    \"personality\": \"สายพันธุ์นี้มีนิสัยขี้เล่น รักเจ้าของ ตลก เหมาะกับครอบครัวที่มีเด็ก\",\n    \"exercise\": \"ควรเดินเล่นเบาๆ 20-30 นาที/วัน ระวังออกกำลังกายหนักเพราะหายใจลำบาก\",\n    \"nutrition\": \"ควบคุมปริมาณอาหาร 1-1.5 ถ้วย/วัน เพราะง่ายต่อการอ้วน\",\n    \"health_care\": \"ควรระวังปัญหาทางเดินหายใจ โรคอ้วน และตา พบสัตวแพทย์ปีละ 2 ครั้ง\",\n    \"grooming\": \"ควรแปรงขนสัปดาห์ละ 2-3 ครั้ง ทำความสะอาดรอยพับบนใบหน้า\"\n  },\n  \"inference_time_ms\": 27.92\n}"
+            }
+          ]
+        },
+        {
+          "name": "Predict - Invalid File Type",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/path/to/document.pdf",
+                  "description": "Invalid file type (should fail)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/predict",
+              "host": ["{{base_url}}"],
+              "path": ["predict"]
+            },
+            "description": "Test error handling with invalid file type"
+          },
+          "response": []
+        },
+        {
+          "name": "Predict - Corrupted Image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/path/to/corrupted.jpg",
+                  "description": "Corrupted image file (should fail)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/predict",
+              "host": ["{{base_url}}"],
+              "path": ["predict"]
+            },
+            "description": "Test error handling with corrupted image"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "item": [
+        {
+          "name": "Swagger UI",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/docs",
+              "host": ["{{base_url}}"],
+              "path": ["docs"]
+            },
+            "description": "Interactive API documentation (Swagger UI)"
+          },
+          "response": []
+        },
+        {
+          "name": "ReDoc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/redoc",
+              "host": ["{{base_url}}"],
+              "path": ["redoc"]
+            },
+            "description": "Alternative API documentation (ReDoc)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://chetsadaphon66-dog-breed-classifier.hf.space",
+      "type": "string"
+    },
+    {
+      "key": "local_url",
+      "value": "http://localhost:8000",
+      "type": "string",
+      "disabled": true
+    }
+  ]
+}
