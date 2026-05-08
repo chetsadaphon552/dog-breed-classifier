@@ -54,7 +54,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
     
-    - name: Deploy Combined Space (API + UI)
+    - name: Deploy API-only Space
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_SPACE: chetsadaphon66/dog-breed-classifier
@@ -62,29 +62,44 @@ jobs:
         git clone https://huggingface:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE hf-space
         cd hf-space
         
-        # Copy all files for combined space
+        # Copy files for API-only deployment
         cp ../api.py .
-        cp ../app.py .
-        cp ../start.sh .
-        cp ../Dockerfile.combined Dockerfile
+        cp ../Dockerfile .
         cp ../requirements.txt .
         mkdir -p models
         cp ../models/resnet34_int8.onnx models/
         cp ../models/resnet34_dog_breeds.json models/
-        cp ../models/breed_care_info.json models/
         
-        # Update README
-        if [ -f ../COMBINED_README.md ]; then
-          cp ../COMBINED_README.md README.md
+        # Update README for HF Space
+        if [ -f ../HF_README.md ]; then
+          cp ../HF_README.md README.md
+        else
+          echo "# Dog Breed Classification API" > README.md
+          echo "" >> README.md
+          echo "FastAPI service for dog breed classification using ONNX INT8 model." >> README.md
+          echo "" >> README.md
+          echo "## API Endpoints" >> README.md
+          echo "- \`GET /\` - Health check" >> README.md
+          echo "- \`GET /health\` - Detailed health status" >> README.md
+          echo "- \`POST /predict\` - Predict dog breed" >> README.md
+          echo "- \`GET /metrics\` - API metrics" >> README.md
+          echo "- \`GET /docs\` - Swagger UI documentation" >> README.md
+          echo "" >> README.md
+          echo "## Usage" >> README.md
+          echo "\`\`\`bash" >> README.md
+          echo "curl -X POST \"https://chetsadaphon66-dog-breed-classifier.hf.space/predict\" \\" >> README.md
+          echo "  -F \"file=@dog.jpg\"" >> README.md
+          echo "\`\`\`" >> README.md
         fi
         
         # Commit and push
         git add .
-        git commit -m "Auto-deploy combined API + UI from GitHub Actions" || echo "No changes to commit"
+        git commit -m "Auto-deploy API-only mode from GitHub Actions" || echo "No changes to commit"
         git push
     
     - name: Deployment summary
       run: |
-        echo "✅ Deployed combined space to https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier"
-        echo "🎨 Streamlit UI: Port 7860"
-        echo "🚀 FastAPI: Port 8000"
+        echo "✅ Deployed API-only space to https://huggingface.co/spaces/chetsadaphon66/dog-breed-classifier"
+        echo "🚀 FastAPI: Port 7860"
+        echo "📖 API Docs: https://chetsadaphon66-dog-breed-classifier.hf.space/docs"
+        echo "📊 Metrics: https://chetsadaphon66-dog-breed-classifier.hf.space/metrics"
