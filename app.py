@@ -8,9 +8,17 @@ from PIL import Image
 import io
 import time
 
-# Configuration
-API_URL = "http://localhost:8000/predict"
-HEALTH_URL = "http://localhost:8000/health"
+# Configuration — FastAPI runs on port 7860 (same host, accessible externally)
+import os
+_space_host = os.environ.get("SPACE_HOST", "")
+if _space_host:
+    # Running on HF Spaces - call FastAPI via the space URL
+    API_URL = f"https://{_space_host}/predict"
+    HEALTH_URL = f"https://{_space_host}/health"
+else:
+    # Local development
+    API_URL = "http://localhost:7860/predict"
+    HEALTH_URL = "http://localhost:7860/health"
 
 # Helper function to call API with retry
 def call_api_with_retry(url, files=None, max_retries=3, timeout=60):
