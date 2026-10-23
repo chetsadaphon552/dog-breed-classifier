@@ -1,58 +1,45 @@
-# Multi-stage build for minimal image size
-FROM python:3.11-slim as builder
+# Combined FastAPI + Streamlit
+FROM python:3.11-slim
 
 WORKDIR /app
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements
-COPY requirements.txt .
-
 # Install Python dependencies
-RUN pip install --no-cache-dir --user \
+# numpy>=2.0 required by pyarrow (streamlit dependency)
+RUN pip install --no-cache-dir \
     fastapi==0.109.0 \
     uvicorn[standard]==0.27.0 \
     python-multipart==0.0.6 \
     pydantic==2.5.3 \
     pillow==10.2.0 \
-    numpy==1.26.3 \
-    onnx==1.21.0 \
-    onnxruntime==1.25.1
+    "numpy>=2.0.0,<3.0.0" \
+    onnxruntime==1.25.1 \
+    streamlit==1.31.0 \
+    requests==2.31.0
 
-# Production stage
-FROM python:3.11-slim
-
-WORKDIR /app
-
-# Create non-root user first
+# Create non-root user
 RUN useradd -m -u 1000 appuser
-
-# Copy Python packages from builder to appuser home
-COPY --from=builder /root/.local /home/appuser/.local
-
-# Make sure scripts in .local are usable
-ENV PATH=/home/appuser/.local/bin:$PATH
 
 # Copy application code
 COPY api.py .
+COPY app.py .
+COPY start.sh .
 COPY models/resnet34_int8.onnx models/
 COPY models/resnet34_dog_breeds.json models/
 COPY models/breed_care_info.json models/
 
-# Set ownership
-RUN chown -R appuser:appuser /app /home/appuser/.local
+RUN chmod +x start.sh && chown -R appuser:appuser /app
 
 USER appuser
 
-# Expose port
 EXPOSE 7860
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:7860/health')"
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:7860/_stcore/health || exit 1
 
-# Run application
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "2"]
+CMD ["./start.sh"]
