@@ -14,9 +14,8 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # Install Python dependencies
-# Install numpy>=2.0 first to satisfy pyarrow/streamlit requirement
-RUN pip install --no-cache-dir "numpy>=2.0.0,<3.0.0" && \
-    pip install --no-cache-dir \
+# Use newer streamlit that supports numpy>=2.0 natively
+RUN pip install --no-cache-dir \
     fastapi==0.109.0 \
     uvicorn[standard]==0.27.0 \
     python-multipart==0.0.6 \
@@ -24,7 +23,8 @@ RUN pip install --no-cache-dir "numpy>=2.0.0,<3.0.0" && \
     pillow==10.2.0 \
     onnxruntime==1.25.1 \
     requests==2.31.0 \
-    streamlit==1.31.0
+    "streamlit>=1.40.0" && \
+    pip install --no-cache-dir --upgrade "numpy>=2.0.0"
 
 # Copy application files
 COPY api.py .
